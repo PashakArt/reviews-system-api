@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ReviewModel } from './review.model';
+import { ReviewModel } from './review.schema';
 
 @Controller('review')
 export class ReviewController {
