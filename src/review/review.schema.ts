@@ -1,5 +1,8 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
+
+export type ReviewDocument = HydratedDocument<ReviewModel>
 export class ReviewModel {
   @Prop()
   _id: string;
