@@ -6,18 +6,17 @@ export enum TopLevelCategory {
   Books,
   Products,
 }
-
+@Schema()
 class HhData {
-
   @Prop()
   count: number;
-  
+
   @Prop()
   juniorSalary: number;
-  
+
   @Prop()
   middleSalary: number;
-  
+
   @Prop()
   seniorSalary: number;
 }
@@ -28,7 +27,6 @@ class TopPageAdvantage {
 }
 
 export class TopPageModel {
-
   @Prop()
   _id: string;
 
@@ -38,8 +36,8 @@ export class TopPageModel {
   @Prop()
   secondCategory: string;
 
-  @Prop( { unique: true })
-  alias: string
+  @Prop({ unique: true })
+  alias: string;
 
   @Prop()
   title: string;

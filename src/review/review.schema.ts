@@ -1,10 +1,10 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
+export type ReviewDocument = HydratedDocument<ReviewModel>;
 
-export type ReviewDocument = HydratedDocument<ReviewModel>
+@Schema()
 export class ReviewModel {
-
   @Prop()
   name: string;
 

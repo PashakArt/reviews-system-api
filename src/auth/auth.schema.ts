@@ -1,8 +1,9 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
 export type AuthDocument = HydratedDocument<AuthModel>;
 
+@Schema()
 export class AuthModel {
   @Prop()
   _id: string;

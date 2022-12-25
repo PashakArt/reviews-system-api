@@ -1,4 +1,4 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 class ProductCharacteristic {
   @Prop()
@@ -7,7 +7,7 @@ class ProductCharacteristic {
   @Prop()
   value: string;
 }
-
+@Schema()
 export class ProductModel {
   @Prop()
   _id: string;
