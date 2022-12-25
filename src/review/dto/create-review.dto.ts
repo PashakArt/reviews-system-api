@@ -3,6 +3,5 @@ export class ReviewDto {
   title: string;
   description: string;
   rating: number;
-  created: Date;
   productId: string;
 }

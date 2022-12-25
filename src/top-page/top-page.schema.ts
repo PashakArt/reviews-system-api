@@ -6,7 +6,7 @@ export enum TopLevelCategory {
   Books,
   Products,
 }
-@Schema()
+
 class HhData {
   @Prop()
   count: number;
@@ -22,13 +22,15 @@ class HhData {
 }
 
 class TopPageAdvantage {
+
+  @Prop()
   title: string;
+
+  @Prop()
   description: string;
 }
-
+@Schema()
 export class TopPageModel {
-  @Prop()
-  _id: string;
 
   @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;

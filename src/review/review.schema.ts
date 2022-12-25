@@ -3,7 +3,7 @@ import { HydratedDocument, Types } from 'mongoose';
 
 export type ReviewDocument = HydratedDocument<ReviewModel>;
 
-@Schema()
+@Schema( {timestamps: {updatedAt: false}})
 export class ReviewModel {
   @Prop()
   name: string;
