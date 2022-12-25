@@ -6,7 +6,6 @@ import { disconnect, Types } from 'mongoose';
 import { ReviewDto } from 'src/review/dto/create-review.dto';
 import { REVIEW_NOT_FOUNDED } from '../src/review/review.constant';
 
-
 const productId = new Types.ObjectId().toHexString();
 const reviewDto: ReviewDto = {
   name: 'test name',
@@ -14,7 +13,7 @@ const reviewDto: ReviewDto = {
   description: 'test description',
   rating: 5,
   productId,
-}
+};
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -29,7 +28,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/review/create (POST) - success', async() => {
+  it('/review/create (POST) - success', async () => {
     return request(app.getHttpServer())
       .post('/review/create')
       .send(reviewDto)
@@ -37,50 +36,50 @@ describe('AppController (e2e)', () => {
       .then(({ body }: request.Response) => {
         createdId = body._id;
         expect(createdId).toBeDefined();
-      })
+      });
   });
 
-  it('/review/create (POST) - fail', async() => {
+  it('/review/create (POST) - fail', async () => {
     return request(app.getHttpServer())
       .post('/review/create')
-      .send({...reviewDto, rating: 0})
-      .expect(400)
+      .send({ ...reviewDto, rating: 0 })
+      .expect(400);
   });
 
-  it('/review/byProduct/:id - success', async() => {
+  it('/review/byProduct/:id - success', async () => {
     return request(app.getHttpServer())
       .get('/review/byProduct/' + productId)
       .expect(200)
       .then(({ body }: request.Response) => {
         expect(body.length).toBe(1);
-      })
-  })
+      });
+  });
 
-  it('/review/byProduct/:id - fail', async() => {
+  it('/review/byProduct/:id - fail', async () => {
     return request(app.getHttpServer())
       .get('/review/byProduct/' + new Types.ObjectId().toHexString())
       .expect(200)
       .then(({ body }: request.Response) => {
         expect(body.length).toBe(0);
-      })
-  })
+      });
+  });
 
   it('/review/:id (DELETE) - success', () => {
     return request(app.getHttpServer())
       .delete('/review/' + createdId)
-      .expect(200)
-  })
+      .expect(200);
+  });
 
   it('/review/:id (DELETE) - fail', () => {
     return request(app.getHttpServer())
       .delete('/review/' + new Types.ObjectId().toHexString())
       .expect(404, {
         statusCode: 404,
-        message: REVIEW_NOT_FOUNDED
-      })
-  })
+        message: REVIEW_NOT_FOUNDED,
+      });
+  });
 
   afterAll(() => {
     disconnect();
-  })
+  });
 });

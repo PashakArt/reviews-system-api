@@ -22,7 +22,6 @@ class HhData {
 }
 
 class TopPageAdvantage {
-
   @Prop()
   title: string;
 
@@ -31,7 +30,6 @@ class TopPageAdvantage {
 }
 @Schema()
 export class TopPageModel {
-
   @Prop({ enum: TopLevelCategory })
   firstCategory: TopLevelCategory;
 

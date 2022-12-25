@@ -9,7 +9,6 @@ class ProductCharacteristic {
 }
 @Schema()
 export class ProductModel {
-
   @Prop()
   title: string;
 

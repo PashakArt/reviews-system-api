@@ -1,7 +1,6 @@
 import { IsString, IsNumber, Max, Min } from 'class-validator';
 
 export class ReviewDto {
-
   @IsString()
   name: string;
 
