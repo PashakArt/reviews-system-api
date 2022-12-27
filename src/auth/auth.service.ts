@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
 
   async createUser(authDto: AuthDto): Promise<UserModel> {
@@ -35,8 +35,6 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
     }
-    console.log(password);
-    console.log(user.passwordHash);
     const isValidPassword = await compare(password, user.passwordHash);
     if (!isValidPassword) {
       throw new UnauthorizedException(WRONG_PASSWORD_ERROR);
@@ -48,6 +46,6 @@ export class AuthService {
     const payload = { email };
     return {
       access_token: await this.jwtService.signAsync(payload),
-    }
+    };
   }
 }
