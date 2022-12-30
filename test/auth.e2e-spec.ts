@@ -4,8 +4,10 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { disconnect } from 'mongoose';
 import { AuthDto } from 'src/auth/dto/auth.dto';
-import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from '../src/auth/auth.constants'
-
+import {
+  USER_NOT_FOUND_ERROR,
+  WRONG_PASSWORD_ERROR,
+} from '../src/auth/auth.constants';
 
 const authDto: AuthDto = {
   email: 'test@mail.com',
@@ -41,7 +43,7 @@ describe('Authorization (e2e)', () => {
       .expect(401, {
         statusCode: 401,
         message: USER_NOT_FOUND_ERROR,
-        error: 'Unauthorized'
+        error: 'Unauthorized',
       });
   });
 
@@ -52,7 +54,7 @@ describe('Authorization (e2e)', () => {
       .expect(401, {
         statusCode: 401,
         message: WRONG_PASSWORD_ERROR,
-        error: 'Unauthorized'
+        error: 'Unauthorized',
       });
   });
 
