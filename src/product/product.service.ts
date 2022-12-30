@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ReviewModel } from 'src/review/review.schema';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto.ts';
 import { ProductDocument, ProductModel } from './product.schema';
@@ -8,7 +9,7 @@ import { ProductDocument, ProductModel } from './product.schema';
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel('Product')
+    @InjectModel(ProductModel.name)
     private readonly productModel: Model<ProductDocument>,
   ) {}
 
@@ -29,34 +30,36 @@ export class ProductService {
   }
 
   async findWithReviews(dto: FindProductDto) {
-    return this.productModel.aggregate([
-      {
-        $match: {
-          categories: dto.category,
+    return this.productModel
+      .aggregate([
+        {
+          $match: {
+            categories: dto.category,
+          },
         },
-      },
-      {
-        $sort: {
-          _id: 1,
+        {
+          $sort: {
+            _id: 1,
+          },
         },
-      },
-      {
-        $limit: dto.limit,
-      },
-      {
-        $lookup: {
-          from: 'Review',
-          localField: '_id',
-          foreignField: 'productId',
-          as: 'reviews',
+        {
+          $limit: dto.limit,
         },
-      },
-      {
-        $addFields: {
-          reviewCount: { $size: '$reviews' },
-					reviewAvg: { $avg: '$reviews.rating' },
+        {
+          $lookup: {
+            from: 'Review',
+            localField: '_id',
+            foreignField: 'productId',
+            as: 'reviews',
+          },
         },
-      },
-    ]);
+        {
+          $addFields: {
+            reviewCount: { $size: '$reviews' },
+            reviewAvg: { $avg: '$reviews.rating' },
+          },
+        },
+      ])
+      .exec();
   }
 }

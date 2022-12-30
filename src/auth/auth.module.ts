@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthController } from './auth.controller';
-import { UserSchema } from './user.schema';
+import { UserModel, UserSchema } from './user.schema';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { getJwtConfig } from '../configs/jwt.config';
@@ -14,7 +14,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   imports: [
     MongooseModule.forFeature([
       {
-        name: 'User',
+        name: UserModel.name,
         schema: UserSchema,
       },
     ]),
