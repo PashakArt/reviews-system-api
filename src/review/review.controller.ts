@@ -11,7 +11,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { IdValidationPipe } from 'src/pipes/id-validation.pipe';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { ReviewDto } from './dto/create-review.dto';
 import { REVIEW_NOT_FOUNDED } from './review.constant';
@@ -36,7 +36,7 @@ export class ReviewController {
     }
   }
 
-  @Get('byProduct/:id')
+  @Get('by-product/:id')
   async getByProduct(@Param('id', IdValidationPipe) id: string) {
     return this.reviewService.findByProductId(id);
   }
