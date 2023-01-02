@@ -11,6 +11,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { IdValidationPipe } from 'src/pipes/id-validation.pipe';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto.ts';
 import { NOT_FOUND_ERROR } from './product.constants';
@@ -21,7 +22,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get(':id')
-  async get(@Param('id') id: string) {
+  async get(@Param('id', IdValidationPipe) id: string) {
     const product = await this.productService.findById(id);
     if (product) {
       return product;
@@ -35,7 +36,7 @@ export class ProductController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', IdValidationPipe) id: string) {
     const deletedProduct = await this.productService.deleteById(id);
     if (!deletedProduct) {
       throw new NotFoundException(NOT_FOUND_ERROR);
@@ -43,7 +44,10 @@ export class ProductController {
   }
 
   @Patch(':id')
-  async patch(@Param('id') id: string, @Body() dto: CreateProductDto) {
+  async patch(
+    @Param('id', IdValidationPipe) id: string,
+    @Body() dto: CreateProductDto,
+  ) {
     const updatedProduct = await this.productService.updateById(id, dto);
     if (updatedProduct) {
       return updatedProduct;
